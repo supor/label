@@ -8,163 +8,207 @@ import unittest
 
 
 class Stream(Config):
+    print """
+        流式分配"""
 
-    # 流式分配
-    def test_1_stream_assign(self):
+    def est_1_stream_assign(self):
 
-        # 登录管理员
+        print("管理员登录")
         self.login(Config.username[0], Config.pwd)
         driver = self.driver
         sleep(Config.STIME)
-        # 点击任务管理，进入管理员页面
-        driver.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[1]/div').click()
-        sleep(Config.STIME)
 
-        # 点击项目管理，进入项目查看页面
-        driver.find_element_by_xpath("//*[@id='main']/div/div[2]/div/div[1]/div").click()
-        sleep(Config.STIME+5)
+        print '进入管理员页面'
+        self.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[1]/div')
 
-        # 筛选原始项目
-        driver.find_element_by_xpath("//*[@id='root']/div[2]/div/div/div[1]/div[1]/div/div[3]/div[2]/select").click()
-        sleep(Config.STIME)
-        driver.find_element_by_xpath("//*[@id='root']/div[2]/div/div/div[1]/div[1]/div/div[3]/div[2]/select/option[2]").click()
+        print "进入项目列表页面"
+        self.find_element_by_xpath("//*[@id='main']/div/div[2]/div/div[1]/div")
+
+        print "筛选已导入的第一个项目"
+        self.find_element_by_xpath("//*[@id='root']/div[2]/div/div/div[1]/div[1]/div/div[3]/div[2]/select")
+        self.find_element_by_xpath("//*[@id='root']/div[2]/div/div/div[1]/div[1]/div/div[3]/div[2]/select/option[2]")
+        self.find_element_by_xpath("//*[@id='root']/div[2]/div/div/div[1]/div[1]/div/div[4]/div[2]/select")
+        self.find_element_by_xpath("//*[@id='root']/div[2]/div/div/div[1]/div[1]/div/div[4]/div[2]/select/option[2]")
+        print "进入第一个项目详情页面"
+        self.find_element_by_xpath("//*[@id='root']/div[2]/div/div/div[2]/table/tbody/tr[1]/td[1]/a")
+
+        print "修改流向为流式标注"
+        self.find_element_by_id("jobstream-edit")
         sleep(Config.STIME+2)
-        driver.find_element_by_xpath("//*[@id='root']/div[2]/div/div/div[1]/div[1]/div/div[4]/div[2]/select").click()
-        sleep(Config.STIME)
-        driver.find_element_by_xpath("//*[@id='root']/div[2]/div/div/div[1]/div[1]/div/div[4]/div[2]/select/option[2]").click()
+        self.find_element_by_xpath("//*[@id='stream-select-area']/div[1]/select")
+        self.find_element_by_xpath("//*[@id='stream-select-area']/div[1]/select/option[2]")
+        self.find_element_by_id("change-jobstream-save")
+        self.find_element_by_xpath('/html/body/div[2]/div/div/div[3]/button[2]')
         sleep(Config.STIME+2)
-        # 点击项目名称，进入项目详情(选择第一个项目，此数据选择还在考虑中)
-        driver.find_element_by_xpath("//*[@id='root']/div[2]/div/div/div[2]/table/tbody/tr[1]/td[1]/a").click()
-        sleep(Config.STIME)
 
-        # 修改流向为流式标注
-        driver.find_element_by_id("jobstream-edit").click()
-        sleep(Config.STIME)
-        driver.find_element_by_xpath("//*[@id='stream-select-area']/div[1]/select").click()
-        sleep(Config.STIME)
-        driver.find_element_by_xpath("//*[@id='stream-select-area']/div[1]/select/option[2]").click()
-        sleep(Config.STIME)
-        driver.find_element_by_id("change-jobstream-save").click()
-        sleep(Config.STIME)
-        driver.find_element_by_xpath('/html/body/div[2]/div/div/div[3]/button[2]').click()
-        sleep(Config.STIME+5)
-
-    def test_2_stream_edit(self):
-
-        # 登录标注员
+    def est_2_stream_edit(self):
+        print """
+标注员标注流程
+            """
+        print "标注员登录"
         self.login(Config.username[1], Config.pwd)
         driver = self.driver
         sleep(Config.STIME)
 
-        # 点击标注，进入标注员管理页面
-        driver.find_element_by_xpath("//*[@id='main']/div/div[2]/div/div[2]/div").click()
-        sleep(Config.STIME)
-        # 点击流式标注，进入流式标注任务列表页面
-        driver.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[5]/div').click()
-        sleep(Config.STIME+3)
+        print "点击标注，进入标注员管理页面"
+        self.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[5]/div')
+        print "点击流式标注，进入流式标注任务列表页面"
+        self.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[5]/div')
 
-        # 点击第一个任务的开始标注按钮
-        driver.find_element_by_xpath('//*[@id="subjob-list-body"]/table/tbody/tr[3]/td[9]/a').click()
-        sleep(Config.STIME+5)
+        print "点击第一个任务的开始标注按钮"
+        self.find_element_by_xpath('//*[@id="subjob-list-body"]/table/tbody/tr[5]/td[8]')
 
-        # 开始标注
-        # 提交
-        driver.find_element_by_id("next1").click()
-        sleep(Config.STIME)
+        print """
+        开始标注...
+        """
+        print "提交"
+        self.find_element_by_id("next1")
 
-        # 跳过
-        driver.find_element_by_id("skip1").click()
-        sleep(Config.STIME)
-        driver.find_element_by_xpath('//*[@id="reason-dialog"]/div/div[2]/button').click()
-        sleep(Config.STIME)
-        driver.find_element_by_id("next1").click()
-        sleep(Config.STIME)
+        print "跳过"
+        self.find_element_by_id("skip1")
+        self.find_element_by_xpath('//*[@id="reason-dialog"]/div/div[2]/button')
+        self.find_element_by_id("next1")
 
-        # 重标
-        driver.find_element_by_id("clear-data1").click()
-        sleep(Config.STIME)
-        driver.find_element_by_xpath('/html/body/div[2]/div/div/div[3]/button[2]').click()
-        sleep(Config.STIME)
-        driver.find_element_by_id("next1").click()
-        sleep(Config.STIME)
+        print "重标"
+        self.find_element_by_id("clear-data1")
+        self.find_element_by_xpath('/html/body/div[2]/div/div/div[3]/button[2]')
+        self.find_element_by_id("next1")
 
-    # 流式检查【检查操作有待优化成自动识别检查所有任务，目前只能实现检查部分】
-    def test_3_stream_check(self):
-
-        # 登录检查员
+    # 【检查操作有待优化成自动识别检查所有任务，目前只能实现检查部分】
+    def est_3_stream_check(self):
+        print """
+        流式检查
+        """
+        print "检查员登录"
         self.login(Config.username[2], Config.pwd)
         driver = self.driver
         sleep(Config.STIME)
 
-        # 点击检查，进入检查员管理页面
-        driver.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[2]/div').click()
+        print "点击检查，进入检查员管理页面"
+        self.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[2]/div')
+
+        print "点击流式检查，进入检查任务列表页面"
+        self.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[4]/div')
         sleep(Config.STIME)
 
-        # 点击流式检查，进入检查任务列表页面
-        driver.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[4]/div').click()
-        sleep(Config.STIME)
-
-        # 选择第一个任务，点击开始检查按钮
-        driver.find_element_by_xpath('//*[@id="subjob-list-body"]/table/tbody/tr[3]/td[9]/a').click()
+        print "选择第一个任务，点击开始检查按钮"
+        self.find_element_by_xpath('//*[@id="subjob-list-body"]/table/tbody/tr[3]/td[9]/a')
         sleep(Config.STIME+2)
 
-        # 开始检查操作
-        # 修改-修改
-        driver.find_element_by_xpath('//*[@id="opt-area-check"]/div[2]/div[1]/button[2]').click()
-        sleep(Config.STIME)
-        driver.find_element_by_id("updateData").click()
-        sleep(Config.STIME)
-        driver.find_element_by_xpath('/html/body/div[2]/div/div/div[3]/button').click()
-        sleep(Config.STIME)
-        # 通过
-        driver.find_element_by_id("next2").click()
+        print """
+        开始检查操作...
+        """
+        print "修改-修改"
+        self.find_element_by_xpath('//*[@id="opt-area-check"]/div[2]/div[1]/button[2]')
+        self.find_element_by_id("updateData")
+        self.find_element_by_xpath('/html/body/div[2]/div/div/div[3]/button')
+
+        print "通过"
+        self.find_element_by_id("next2")
         sleep(Config.STIME+2)
 
-        # 修改-跳过
-        driver.find_element_by_xpath('//*[@id="opt-area-check"]/div[2]/div[1]/button[2]').click()
-        sleep(Config.STIME)
-        driver.find_element_by_id("updateSkip").click()
-        sleep(Config.STIME)
-        driver.find_element_by_xpath('//*[@id="reason-dialog"]/div/div[2]/button').click()
-        sleep(Config.STIME)
-        driver.find_element_by_xpath('/html/body/div[2]/div/div/div[3]/button').click()
-        sleep(Config.STIME)
-        driver.find_element_by_id("next2").click()
+        print "修改-跳过"
+        self.find_element_by_xpath('//*[@id="opt-area-check"]/div[2]/div[1]/button[2]')
+        self.find_element_by_id("updateSkip")
+        self.find_element_by_xpath('//*[@id="reason-dialog"]/div/div[2]/button')
+        self.find_element_by_xpath('/html/body/div[2]/div/div/div[3]/button')
+        self.find_element_by_id("next2")
         sleep(Config.STIME + 2)
 
-        # 驳回
-        driver.find_element_by_id('reject2').click()
-        sleep(Config.STIME)
-        driver.find_element_by_xpath('//*[@id="reason-dialog"]/div/div[2]/button').click()
+        print "驳回"
+        self.find_element_by_id('reject2')
+        self.find_element_by_xpath('//*[@id="reason-dialog"]/div/div[2]/button')
         sleep(Config.STIME+2)
 
-    # 流式验收
-    def test_4_stream_acceptance(self):
-
-        # 登录发布员/验收员
+    def est_4_stream_acceptance(self):
+        print """
+            流式验收
+            """
+        print "登录发布员/验收员"
         self.login(Config.username[0], Config.pwd)
         driver = self.driver
         sleep(Config.STIME)
 
-        # 点击验收，进入验收管理页面
-        driver.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[2]/div').click()
-        sleep(Config.STIME)
+        print "点击验收，进入验收管理页面"
+        self.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[2]/div')
 
-        # 点击新增验收（流式），进入验收任务页面
-        driver.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[6]').click()
-        sleep(Config.STIME)
+        print "点击新增验收（流式），进入验收任务页面"
+        self.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[6]')
 
-        # 选择第一个任务，点击验收
-        driver.find_element_by_xpath('//*[@id="root"]/div[2]/div/div/div[2]/table/tbody/tr/td[11]/a').click()
-        sleep(Config.STIME)
-        driver.find_element_by_id('new-review-commit').click()
-        sleep(Config.STIME)
+        print "选择第一个任务，点击验收"
+        self.find_element_by_xpath('//*[@id="root"]/div[2]/div/div/div[2]/table/tbody/tr/td[11]/a')
+        self.find_element_by_id('new-review-commit')
 
-        # 通过
-        driver.find_element_by_id("approve").click()
-        sleep(Config.STIME)
+        print "放弃"
+        self.find_element_by_id("reject")
+
+        self.find_element_by_id("reason-btn")
+        sleep(Config.STIME+2)
+
+        print """
+        批驳
+        """
+        print "返回首页"
+        self.find_element_by_xpath('//*[@id="navbar"]/div[2]/ul/li[1]/a')
+        print "点击任务管理，进入管理员页面"
+        self.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[1]/div')
+        print "点击批驳验收，进入批驳列表"
+        self.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[2]/div')
+        print "批驳按钮，进入批驳页面"
+        self.find_element_by_xpath('//*[@id="root"]/div[2]/div/div[2]/div[2]/table/tbody/tr/td[12]/a')
+        print "反对驳回"
+        self.find_element_by_id('reject')
+        self.find_element_by_id('reason-btn')
+        self.find_element_by_xpath('/html/body/div[5]/div/div/div[3]/button[2]')
+        sleep(Config.STIME+2)
+
+        print """
+        进入管理批驳页面
+        """
+        print "返回首页"
+        self.find_element_by_xpath('//*[@id="navbar"]/div[2]/ul/li[1]')
+        print "点击验收，进入验收管理页面"
+        self.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[2]/div')
+        print "进入管理批驳（流式）页面"
+        self.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[5]/div')
+
+        print """
+        筛选出项目类型 （假脸识别）
+        """
+        self.find_element_by_xpath('//*[@id="condition-area"]/select[1]')
+        self.find_element_by_xpath('//*[@id="condition-area"]/select[1]/option[10]')
+
+        print "筛选出验收中的数据"
+        print "选择验收"
+        self.find_element_by_xpath('//*[@id="condition-area"]/select[2]')
+        self.find_element_by_xpath('//*[@id="condition-area"]/select[2]/option[2]')
+        print "点击提交"
+        self.find_element_by_xpath('//*[@id="condition-area"]/button')
+
+        print "放弃验收"
+        print "选择第一条数据，点击继续验收"
+        self.find_element_by_xpath('//*[@id="subjob-list"]/table/tbody/tr[1]/td[8]/a[1]')
+        print "点击放弃"
+        self.find_element_by_id('giveup')
         driver.switch_to_alert().accept()
-        sleep(10)
+        sleep(Config.STIME+2)
+
+        print """验收通过
+        
+        """
+        print "返回首页"
+        self.find_element_by_xpath('//*[@id="navbar"]/div[2]/ul/li[1]/a')
+        print "点击验收，进入验收管理页面"
+        self.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[2]/div')
+        print "点击新增验收（流式），进入验收任务页面"
+        self.find_element_by_xpath('//*[@id="main"]/div/div[2]/div/div[6]')
+        print "选择第一个任务，点击验收"
+        self.find_element_by_xpath('//*[@id="root"]/div[2]/div/div/div[2]/table/tbody/tr/td[11]/a')
+        self.find_element_by_id('new-review-commit')
+        print "点击通过"
+        self.find_element_by_id("approve")
+        driver.switch_to_alert().accept()
+        sleep(Config.STIME)
 
 
 # if __name__ == "__main__":

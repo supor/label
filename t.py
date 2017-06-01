@@ -1,16 +1,16 @@
 # -*- coding:utf-8 -*-
+import requests
 
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium import webdriver
-from time import sleep
-from selenium.webdriver.common.keys import Keys
+url = "http://liyubao.dev.zzcrowd.com/stream-edit-submit/10707"
 
+payload = "{\"skip\":false,\"results\":{\"results_type\":\"ok\",\"results_reason\":\"\",\"results_value\":[{\"entities\":[{\"type\":\"FaceBeautyPK\",\"value\":{\"images\":[\"8a640d82bb20be3cd3f820c899014031222be635\",\"01029ea743102b07d58a976f5407d260e5a27eb3\"],\"winner\":0,\"editor_name\":\"r\"}}]}]}}\r\n"
+headers = {
+    'content-type': "application/json",
+    'cache-control': "no-cache",
+    'postman-token': "95574eba-c819-4627-7546-d7ec8ac350b8"
+    }
 
-def Transfer_Clicks():
-    browser = webdriver.Chrome("C:\Program Files (x86)\Google\Chrome\Application/chromedriver")
-    browser.get("http://baike.baidu.com/link?url=BOBcwJDcyCH1Ne3_axo3ESSZYloQybkgviDdNkW_chweLoC1wwcTjFWkQKEtUtmbjAPlKVQeSL89CWO81dxq8K")
-    sleep(5)
-    ActionChains(browser).send_keys(Keys.DOWN).perform()
-    sleep(5)
+response = requests.request("POST", url, data=payload, headers=headers)
 
-Transfer_Clicks()
+print(response.text)
+
